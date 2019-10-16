@@ -1,26 +1,28 @@
 package com.marcos.cursomc.resources;
 
-import java.util.Arrays;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marcos.cursomc.domain.Categoria;
+import com.marcos.cursomc.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-	@GetMapping
-	public List<Categoria> listar() {
+	@Autowired
+	private CategoriaService service;
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
 		
-		Categoria cat1 = new Categoria(1, "informática");
-		Categoria cat2 = new Categoria(2, "escritório");
+		Categoria categoria = service.buscar(id);
 		
-		List<Categoria> catList = Arrays.asList(cat1, cat2);
-		
-		return catList;
+		return ResponseEntity.ok(categoria);
 	}
 }
