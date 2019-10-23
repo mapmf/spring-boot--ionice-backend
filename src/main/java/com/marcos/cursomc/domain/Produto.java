@@ -2,7 +2,10 @@ package com.marcos.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -30,6 +34,9 @@ public class Produto implements Serializable {
 		inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<Categoria>();
 
+	@OneToMany(mappedBy = "itemPedidoPK.produto")
+	private Set<ItemPedido> itemPedidos = new HashSet<ItemPedido>();
+	
 	public Produto() {
 	}
 	
@@ -38,6 +45,15 @@ public class Produto implements Serializable {
 		this.nome = nome;
 		this.preco = preco;
 	}
+	
+	public List<Pedido> getPedidos() {
+
+		return getItemPedidos()
+				.stream()
+				.map(ip -> ip.getPedido()).collect(Collectors.toList());
+
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -71,6 +87,14 @@ public class Produto implements Serializable {
 		this.categorias = categorias;
 	}
 
+	public Set<ItemPedido> getItemPedidos() {
+		return itemPedidos;
+	}
+
+	public void setItemPedidos(Set<ItemPedido> itemPedidos) {
+		this.itemPedidos = itemPedidos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -95,5 +119,6 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+
 
 }
