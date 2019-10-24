@@ -21,4 +21,11 @@ public class CategoriaService {
 								+ ", Tipo: " + Categoria.class.getName()));
 	}
 
+	public Categoria insert(Categoria obj) {
+		
+		obj.setId(null);
+		
+		return repo.save(obj);
+	}
+
 }
