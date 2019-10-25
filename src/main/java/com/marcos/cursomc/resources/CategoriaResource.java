@@ -1,6 +1,8 @@
 package com.marcos.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.marcos.cursomc.domain.Categoria;
+import com.marcos.cursomc.dto.CategoriaDTO;
 import com.marcos.cursomc.services.CategoriaService;
 
 @RestController
@@ -61,5 +64,17 @@ public class CategoriaResource {
 		service.delete(id);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		
+		List<Categoria> categoriaList = service.findAll();
+		
+		List<CategoriaDTO> categoriaDTOList = categoriaList.stream()
+															.map(c -> new CategoriaDTO(c))
+															.collect(Collectors.toList());
+		
+		return ResponseEntity.ok(categoriaDTOList);
 	}
 }
