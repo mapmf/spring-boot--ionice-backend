@@ -44,7 +44,7 @@ public class Pedido implements Serializable {
 	private Endereco enderecoDeEntrega;
 
 	@OneToMany(mappedBy = "itemPedidoPK.pedido")
-	private Set<ItemPedido> itemPedidos = new HashSet<ItemPedido>();
+	private Set<ItemPedido> itens = new HashSet<ItemPedido>();
 
 	public Pedido() {
 	}
@@ -61,7 +61,7 @@ public class Pedido implements Serializable {
 		
 		double total = 0;
 		
-		for (ItemPedido itemPedido : itemPedidos) {
+		for (ItemPedido itemPedido : itens) {
 			total += itemPedido.getSubTotal();
 		}
 		
@@ -71,7 +71,7 @@ public class Pedido implements Serializable {
 	@JsonIgnore
 	public List<Produto> getProdutos() {
 
-		return getItemPedidos()
+		return getItens()
 				.stream()
 				.map(ip -> ip.getProduto()).collect(Collectors.toList());
 
@@ -117,12 +117,12 @@ public class Pedido implements Serializable {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
-	public Set<ItemPedido> getItemPedidos() {
-		return itemPedidos;
+	public Set<ItemPedido> getItens() {
+		return itens;
 	}
 
-	public void setItemPedidos(Set<ItemPedido> itemPedidos) {
-		this.itemPedidos = itemPedidos;
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	@Override
