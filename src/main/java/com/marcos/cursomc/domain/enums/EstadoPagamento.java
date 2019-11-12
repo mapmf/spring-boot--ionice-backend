@@ -7,19 +7,19 @@ public enum EstadoPagamento {
 	CANCELADO(3, "Cancelado");
 	
 	private int id;
-	private String decricao;
+	private String descricao;
 	
 	private EstadoPagamento(int id, String decricao) {
 		this.setId(id);
-		this.decricao = decricao;
+		this.descricao = decricao;
 	}
 
-	public String getDecricao() {
-		return decricao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDecricao(String decricao) {
-		this.decricao = decricao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public int getId() {

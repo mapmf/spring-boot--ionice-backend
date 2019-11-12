@@ -168,7 +168,7 @@ public class Pedido implements Serializable {
 		builder.append(", cliente: ");
 		builder.append(getCliente().getNome());
 		builder.append(", situação do pagamento: ");
-		builder.append(getPagamento().getEstado().getDecricao());
+		builder.append(getPagamento().getEstado().getDescricao());
 		
 		builder.append("\n Detalhes: \n");
 		
