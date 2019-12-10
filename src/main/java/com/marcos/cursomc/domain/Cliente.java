@@ -34,6 +34,8 @@ public class Cliente implements Serializable{
 	private String cpfOuCnpj;
 	private Integer tipoCliente;
 	
+	private String imageUrl;
+	
 	@JsonIgnore
 	private String senha;
 
@@ -139,6 +141,14 @@ public class Cliente implements Serializable{
 		this.senha = senha;
 	}
 	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
 	public Set<Perfil> getPerfis(){
 
 		return perfis.stream().map(p -> Perfil.toEnum(p)).collect(Collectors.toSet()); 
@@ -176,7 +186,5 @@ public class Cliente implements Serializable{
 		if (tipoCliente != other.tipoCliente)
 			return false;
 		return true;
-	}
-
-	
+	}	
 }
